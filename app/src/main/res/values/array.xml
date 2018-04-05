@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="clas">
+		<item>Select Class</item>
+		<item>XI</item>
+		<item>XII</item>
+	</string-array>
+	<string-array name="stream">
+		<item>Select Stream</item>
+		<item>Science</item>
+		<item>Commerce</item>
+		<item>Arts</item>
+	</string-array>
+
+</resources>

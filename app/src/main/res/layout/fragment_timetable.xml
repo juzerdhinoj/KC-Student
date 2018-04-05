@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:theme="@style/AppTheme.NoActionBar"
+	tools:context=".fragments.TimetableFragment">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:padding="16dp">
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="Stream"/>
+
+		<RadioGroup
+			android:id="@+id/stream"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:orientation="horizontal"
+			android:weightSum="1">
+
+			<RadioButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+
+				android:text="Science"/>
+
+
+			<RadioButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+
+				android:text="Commerce"/>
+
+
+			<RadioButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+
+				android:text="Arts"/>
+
+		</RadioGroup>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="20dp"
+			android:text="Class"/>
+
+		<RadioGroup
+			android:id="@+id/clas"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:orientation="horizontal"
+			android:weightSum="1">
+
+			<RadioButton
+				android:layout_width="wrap_content"
+
+				android:layout_height="wrap_content"
+
+				android:text="FYJC"/>
+
+			<RadioButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+
+
+				android:text="SYJC"/>
+
+		</RadioGroup>
+
+		<Button
+			android:id="@+id/dwd"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="20dp"
+			android:background="@color/gblue"
+			android:text="DOWNLOAD"
+			android:textColor="@color/white"/>
+	</LinearLayout>
+</ScrollView>

@@ -1,0 +1,115 @@
+<resources>
+
+	<string name="app_name">KC College</string>
+	<string name="contact_sir">\nIf you are unable to login or register contact\nNiraj Patel Sir\nat Computer Science lab, HR basement.</string>
+
+
+	<!-- URLs -->
+	<string name="link">http://www.kccollege.net.in/student/rss.json</string>
+	<string name="link_guest">http://www.kccollege.net.in/student/rss_guest.json</string>
+	<string name="contacturl">http://kccollege.edu.in/contact-us-kc.php</string>
+	<string name="result">http://kccollege.net.in/student/results/</string>
+	<string name="downloadurl">http://kccollege.net.in/downloads/</string>
+	<string name="api_url">http://kccollege.net.in/student/login_api/</string>
+
+
+	<string name="action_settings">Settings</string>
+	<string name="title_activity_index">KC College</string>
+	<string name="title_activity_feed">Notices</string>
+	<string name="about">KC Student App created by\n\nJC CS Department:-\nNiraj Patel (teacher)\nSahil Nirkhe (student)\nParas Shah (student)</string>
+
+
+	<string name="tag_title">title</string>
+	<string name="tag_summary">summary</string>
+	<string name="item">item</string>
+
+
+	<string name="lastupdate">Last updated on:</string>
+	<string name="date_format">MMM dd h:mmaa</string>
+
+
+	<string name="no_internet">No internet connection.</string>
+	<string name="errorbox">You need a network connection to use this application. Please turn on mobile network or Wi-Fi in Settings.</string>
+	<string name="title_activity_webview">WebviewActivity</string>
+	<string name="title_activity_splash">Splash</string>
+	<string name="title_activity_settings">Settings</string>
+
+
+	<!--Notifications -->
+	<string name="pref_header_notifications">Notifications</string>
+	<string name="pref_title_new_message_notifications">Notices</string>
+	<string name="notif">Would you like to receive updates via Notifications?</string>
+
+
+	<string name="title_activity_feedback">Feedback</string>
+	<string name="title_activity_timetable">Timetable</string>
+	<string name="btnresult">RESULT</string>
+	<string name="btnnotices">NOTICES</string>
+	<string name="btnabout">ABOUT</string>
+	<string name="btncontact">CONTACT</string>
+	<string name="btntimetable">TIMETABLE</string>
+	<string name="title_activity_register">Register</string>
+	<string name="title_activity_registered">Registered</string>
+	<string name="title_activity_login">KC College</string>
+
+
+	<!--LOGIN API STATIC STRINGS-->
+	<!--<string name="KEY_NAME">name</string>-->
+	<!--<string name="KEY_EMAIL">email</string>-->
+	<!--<string name="KEY_DET">details</string>-->
+	<!--<string name="KEY_UNIQUE">unique</string>-->
+	<!--<string name="KEY_CREATED">created</string>-->
+	<!--<string name="KEY_PASS">password</string>-->
+	<!--<string name="KEY_STATUS">status</string>-->
+	<!--<string name="KEY_MESSAGE">message</string>-->
+
+	<!--ERRORS-->
+	<string name="error_connection">There was a problem in the internet connection.</string>
+	<string name="error_user_found">User already exists</string>
+	<string name="error_user_not_found">User doesn\'t exists</string>
+	<string name="error_incorrect_pass">Incorrect password</string>
+	<string name="error_unknown">Unknown error occurred. Please try again later.</string>
+	<string name="error_unique_taken">Unique ID is already taken</string>
+	<string name="error_unique_not_found">Unique ID not found</string>
+
+	<string name="error_roll_taken">Roll No already taken</string>
+	<string name="error_blank_email">Email ID field cannot be left blank</string>
+	<string name="error_blank_pass">Password cannot be less than 5 characters</string>
+	<string name="warning_register">\nFor security purposes,\nyou will only be able to view results for your Roll no.\n\nConfirm all the details before tapping on \"Register\"\n</string>
+	<string name="error_file_notfound">Offline file was not found</string>
+	<string name="error_password_match">Passwords do not match</string>
+	<string name="error_field_required">All fields are required</string>
+	<string name="error_unique_chars">Unique ID has to be 6 characters</string>
+
+	<string name="error_email_invalid">Invalid Email ID</string>
+
+	<!--MISC-->
+	<string name="pref_email">user_email</string>
+	<string name="title_activity_forgot_password">Forgot Password</string>
+	<string name="title_activity_change_password">Change Password</string>
+
+
+	<string name="html_forgotpass"><![CDATA[<u><i>Forgot Password?</i></u>]]></string>
+
+	<string name="loggedout">You have been logged out.</string>
+	<string name="processing">Processing</string>
+	<string name="contactingservers">Contacting servers…</string>
+	<string name="log">Change Log</string>
+	<string name="error_logout_user">You have been logged out due to one of the following reasons\n1) The academic year has ended and the database has been reset.\n2) Servers are currently under maintenance.</string>
+
+	<string name="post1">standard=</string>
+	<string name="post2">stream=</string>
+	<string name="post3">rollno=</string>
+	<string name="error_blank_name">Name field cannot be blank</string>
+	<string name="error_blank_feedback">Please type in your Feedback</string>
+
+	<string name="rss_file_name">rss.stacks</string>
+	<string name="status_refreshing">Refreshing...</string>
+	<string name="offline_notices_messsage">Offline : Pull to refresh\nLast updated on %s</string>
+
+	<string name="feedback_url">http://kccollege.net.in/app_apis/feedback.php</string>
+	<string name="channel_description">Notifications for Notices</string>
+	<string name="channel_name">Notices</string>
+
+
+</resources>
