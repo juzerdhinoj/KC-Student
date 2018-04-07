@@ -3,8 +3,6 @@ package in.net.kccollege.student.services;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.job.JobParameters;
-import android.app.job.JobService;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,17 +13,20 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.common.ANRequest;
+import com.androidnetworking.common.ANResponse;
+import com.google.android.gms.gcm.GcmTaskService;
+import com.google.android.gms.gcm.TaskParams;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import in.net.kccollege.student.R;
 import in.net.kccollege.student.activities.IndexActivity;
-import in.net.kccollege.student.utils.InternetUtils;
 import in.net.kccollege.student.utils.RssHelper;
 
+import static com.google.android.gms.gcm.GcmNetworkManager.RESULT_RESCHEDULE;
+import static com.google.android.gms.gcm.GcmNetworkManager.RESULT_SUCCESS;
 import static in.net.kccollege.student.ApplicationClass.getSp;
 import static in.net.kccollege.student.utils.Constants.CHANNEL_ID;
 import static in.net.kccollege.student.utils.Constants.JOB_ID;
@@ -33,59 +34,58 @@ import static in.net.kccollege.student.utils.Constants.KEY_ENTRIES;
 import static in.net.kccollege.student.utils.Constants.KEY_NOTICES;
 import static in.net.kccollege.student.utils.Constants.KEY_TITLE;
 
-/**
- * Created by Sahil on 14-03-2018.
- */
+public class CheckRssService extends GcmTaskService {
 
-public class CheckRssService extends JobService {
-
-	private static final String TAG = "CheckRssService";
+	private static final String TAG = "CheckRssServiceGCM";
 	private String RSS_URL;
 
 	@Override
-	public boolean onStartJob(final JobParameters params) {
+	public int onRunTask(TaskParams taskParams) {
+
+		int result = RESULT_SUCCESS;
+
 		SharedPreferences sp = getSp();
 		RSS_URL = getString(sp.getBoolean("guest", false) ? R.string.link_guest : R.string.link);
 
 		Log.d(TAG, "onStartJob: JOB started");
 
-		InternetUtils.getData(RSS_URL,
-				KEY_NOTICES,
-				new JSONObjectRequestListener() {
-					@Override
-					public void onResponse(JSONObject response) {
 
-						Log.d(TAG, "onResponse: SERVER RESPONDED");
+		ANRequest request = AndroidNetworking.get(RSS_URL)
+				.setTag(KEY_NOTICES)
+				.getResponseOnlyFromNetwork()
+				.doNotCacheResponse()
+				.build();
 
-						JSONObject offlineData = RssHelper.getOfflineRssFile(CheckRssService.this);
-						String onlineData = response.toString();
-						Log.d("Offline data", offlineData.toString() + "\n\nLength:" + offlineData.toString().length());
-						Log.d("Online data", onlineData + "\n\nLength:" + onlineData.length());
-						if (offlineData.toString().length() != onlineData.length()) {
-							Log.d("Data is", "different");
+		ANResponse<JSONObject> anResponse = request.executeForJSONObject();
+		if (anResponse.isSuccess()) {
 
-							JSONArray entries = response.optJSONArray(KEY_ENTRIES);
-							JSONObject firstItem = entries.optJSONObject(0);
-							sendNotification(firstItem.optString(KEY_TITLE));
+			JSONObject response = anResponse.getResult();
 
-							RssHelper.saveOfflineRssFile(CheckRssService.this, onlineData);
+			Log.d(TAG, "onResponse: SERVER RESPONDED");
 
-						} else {
-							Log.d("JSONData is", "same");
-						}
+			JSONObject offlineData = RssHelper.getOfflineRssFile(CheckRssService.this);
+			String onlineData = response.toString();
+			Log.d("Offline data", offlineData.toString() + "\n\nLength:" + offlineData.toString().length());
+			Log.d("Online data", onlineData + "\n\nLength:" + onlineData.length());
+			if (offlineData.toString().length() != onlineData.length()) {
+				Log.d("Data is", "different");
 
-						jobFinished(params, false);
-					}
+				JSONArray entries = response.optJSONArray(KEY_ENTRIES);
+				JSONObject firstItem = entries.optJSONObject(0);
+				sendNotification(firstItem.optString(KEY_TITLE));
 
-					@Override
-					public void onError(ANError anError) {
-						anError.printStackTrace();
-						jobFinished(params, true);
-					}
-				});
+				RssHelper.saveOfflineRssFile(CheckRssService.this, onlineData);
 
+			} else {
+				Log.d("JSONData is", "same");
+			}
 
-		return true;
+		} else {
+			anResponse.getError().printStackTrace();
+			result = RESULT_RESCHEDULE;
+		}
+
+		return result;
 	}
 
 	public void initChannels(Context context) {
@@ -101,7 +101,6 @@ public class CheckRssService extends JobService {
 		channel.setDescription(getString(R.string.channel_description));
 		notificationManager.createNotificationChannel(channel);
 	}
-
 
 	private void sendNotification(String msg) {
 		Log.d(TAG, "sendNotification: sending notif");
@@ -131,8 +130,8 @@ public class CheckRssService extends JobService {
 
 
 	@Override
-	public boolean onStopJob(JobParameters params) {
+	public void onDestroy() {
 		AndroidNetworking.cancel(KEY_NOTICES);
-		return false;
+		super.onDestroy();
 	}
 }

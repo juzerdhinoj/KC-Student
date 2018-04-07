@@ -69,6 +69,8 @@ dependencies {
 		transitive = true
 	}
 
+	implementation 'com.google.android.gms:play-services-gcm:12.0.1'
+
 
 }
 // debugImplementation 'com.amitshekhar.android:debug-db:1.0.1'

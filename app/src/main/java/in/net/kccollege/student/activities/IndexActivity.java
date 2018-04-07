@@ -72,10 +72,9 @@ public class IndexActivity extends AppCompatActivity implements Drawer.OnDrawerI
 //		System.out.println(encrypted);
 //		String decrypted = EncryptionUtils.decrypt("title", "summary", encrypted);
 //		System.out.println(decrypted);
-
+//		FirebaseMessaging.getInstance().subscribeToTopic("debug");
 
 		if (sp.getBoolean("notif", false)) {
-//			new AlarmReceiver().setAlarm(Index.this);
 			FirebaseMessaging.getInstance().subscribeToTopic(sp.getBoolean("guest", false) ? "guest" : "users");
 			Log.d("Subscribing", sp.getBoolean("guest", false) ? "guest" : "users");
 		}
