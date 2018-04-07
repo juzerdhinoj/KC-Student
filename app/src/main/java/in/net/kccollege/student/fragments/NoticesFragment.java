@@ -1,5 +1,6 @@
 package in.net.kccollege.student.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 
@@ -187,30 +189,37 @@ public class NoticesFragment extends Fragment {
 						@Override
 						public void onResponse(JSONObject response) {
 
-							new ConvertJson(response, 1).execute();
+							Activity activity = getActivity();
+							if (activity != null && isAdded()) {
+								new ConvertJson(response, 1).execute();
 
-							Calendar rightNow = Calendar.getInstance();
-							DateFormat formatter = new SimpleDateFormat(getString(R.string.date_format));
-							status.setText(String.format("%s%s", getString(R.string.lastupdate), formatter.format(rightNow.getTime())));
-							swipeView.setRefreshing(false);
+								Calendar rightNow = Calendar.getInstance();
+								DateFormat formatter = new SimpleDateFormat(getString(R.string.date_format));
+								status.setText(String.format("%s%s", getString(R.string.lastupdate), formatter.format(rightNow.getTime())));
+								swipeView.setRefreshing(false);
+
+							}
 						}
 
 						@Override
 						public void onError(ANError anError) {
-							swipeView.setRefreshing(false);
-							anError.printStackTrace();
-							switch (anError.getErrorDetail()) {
-								case CONNECTION_ERROR:
-								case RESPONSE_FROM_SERVER_ERROR:
-									toastInternetError(context);
-									status.setText(R.string.error_connection);
-									createNetErrorDialog();
-									break;
+							Activity activity = getActivity();
+							if (activity != null && isAdded()) {
+								swipeView.setRefreshing(false);
+								anError.printStackTrace();
+								switch (anError.getErrorDetail()) {
+									case CONNECTION_ERROR:
+									case RESPONSE_FROM_SERVER_ERROR:
+										toastInternetError(context);
+										status.setText(R.string.error_connection);
+										createNetErrorDialog();
+										break;
 
-								case PARSE_ERROR:
-									toastUnknownError(context);
-									status.setText(R.string.error_unknown);
-									break;
+									case PARSE_ERROR:
+										toastUnknownError(context);
+										status.setText(R.string.error_unknown);
+										break;
+								}
 							}
 
 						}
@@ -295,4 +304,9 @@ public class NoticesFragment extends Fragment {
 		}
 	}
 
+	@Override
+	public void onDetach() {
+		AndroidNetworking.cancel(KEY_NOTICES);
+		super.onDetach();
+	}
 }

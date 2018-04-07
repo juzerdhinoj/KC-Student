@@ -24,6 +24,11 @@ import in.net.kccollege.student.R;
 import in.net.kccollege.student.db.DatabaseHandler;
 import in.net.kccollege.student.model.UserDetails;
 
+
+/**
+ * Some really bad code here
+ */
+
 public class BrowserActivity extends AppCompatActivity {
 
 	@BindView(R.id.webview)
@@ -37,6 +42,10 @@ public class BrowserActivity extends AppCompatActivity {
 
 	private Context context;
 	private SharedPreferences sp;
+
+	private UserDetails ud;
+	private String[] details;
+	private String url;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,51 +85,18 @@ public class BrowserActivity extends AppCompatActivity {
 
 				srl.setRefreshing(true);
 				DatabaseHandler db = new DatabaseHandler(context);
-				UserDetails ud = db.getUserDetails();
-				final String[] details = ud.getDetails().split("-");
+				ud = db.getUserDetails();
+				details = ud.getDetails().split("-");
 
+				url = bundle.getString("url");
 //				boolean is_dev = ud.getUnique().contains("dev00");
 //				String url = is_dev ? bundle.getString("url") :
-				if (ud.getUnique().contains("dev00")) {
-					myWebView.loadUrl(new String(Base64.decode("aHR0cDovL2tjY29sbGVnZS5uZXQuaW4vbWFya3MvZGV2Lmh0bWw=", Base64.DEFAULT)));
-					srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-						@Override
-						public void onRefresh() {
-							myWebView.loadUrl(new String(Base64.decode("aHR0cDovL2tjY29sbGVnZS5uZXQuaW4vbWFya3MvZGV2Lmh0bWw=", Base64.DEFAULT)));
-						}
-					});
-				} else {
-					try {
-						myWebView.postUrl(bundle.getString("url"),
-								(getString(R.string.post3) + URLEncoder.encode(details[2], "UTF-8") + "&" +
-										getString(R.string.post2) + URLEncoder.encode(details[1], "UTF-8") + "&" +
-										getString(R.string.post1) + URLEncoder.encode((details[0].equals("X1") ? "XI" : "XII"), "UTF-8")).getBytes()
-						);
-					} catch (UnsupportedEncodingException e) {
-						e.printStackTrace();
-					}
-//
-					srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-						@Override
-						public void onRefresh() {
-							try {
-								myWebView.postUrl(bundle.getString("url"),
-										(getString(R.string.post3) + URLEncoder.encode(details[2], "UTF-8") + "&" +
-												getString(R.string.post2) + URLEncoder.encode(details[1], "UTF-8") + "&" +
-												getString(R.string.post1) + URLEncoder.encode((details[0].equals("X1") ? "XI" : "XII"), "UTF-8")).getBytes()
-								);
-							} catch (UnsupportedEncodingException e) {
-								e.printStackTrace();
-							}
 
-						}
-					});
-				}
 //
 				myWebView.setWebViewClient(new WebViewClient() {
 					@Override
 					public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-						myWebView.loadData("", "text/html", null);
+
 						AlertDialog.Builder adb = new AlertDialog.Builder(BrowserActivity.this);
 						adb.setTitle("Error");
 						TextView msg = new TextView(BrowserActivity.this);
@@ -129,16 +105,18 @@ public class BrowserActivity extends AppCompatActivity {
 						adb.setView(msg).setPositiveButton("Refresh", new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialogInterface, int i) {
-								myWebView.reload();
+								refreshWebView();
 							}
 						}).setNegativeButton("Back", new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialogInterface, int i) {
 								finish();
 							}
-						});
+						}).setCancelable(false);
 						AlertDialog ad = adb.create();
 						ad.show();
+						String customErrorPageHtml = "<html></html>";
+						view.loadData(customErrorPageHtml, "text/html", null);
 					}
 
 					@Override
@@ -150,10 +128,49 @@ public class BrowserActivity extends AppCompatActivity {
 
 				});
 
+				refreshWebView();
+
 		}
 
 	}
 
+	private void refreshWebView() {
+		if (ud.getUnique().contains("dev00")) {
+			myWebView.loadUrl(new String(Base64.decode("aHR0cDovL2tjY29sbGVnZS5uZXQuaW4vbWFya3MvZGV2Lmh0bWw=", Base64.DEFAULT)));
+			srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+				@Override
+				public void onRefresh() {
+					myWebView.loadUrl(new String(Base64.decode("aHR0cDovL2tjY29sbGVnZS5uZXQuaW4vbWFya3MvZGV2Lmh0bWw=", Base64.DEFAULT)));
+				}
+			});
+		} else {
+			try {
+				myWebView.postUrl(url,
+						(getString(R.string.post3) + URLEncoder.encode(details[2], "UTF-8") + "&" +
+								getString(R.string.post2) + URLEncoder.encode(details[1], "UTF-8") + "&" +
+								getString(R.string.post1) + URLEncoder.encode((details[0].equals("X1") ? "XI" : "XII"), "UTF-8")).getBytes()
+				);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+
+			srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+				@Override
+				public void onRefresh() {
+					try {
+						myWebView.postUrl(url,
+								(getString(R.string.post3) + URLEncoder.encode(details[2], "UTF-8") + "&" +
+										getString(R.string.post2) + URLEncoder.encode(details[1], "UTF-8") + "&" +
+										getString(R.string.post1) + URLEncoder.encode((details[0].equals("X1") ? "XI" : "XII"), "UTF-8")).getBytes()
+						);
+					} catch (UnsupportedEncodingException e) {
+						e.printStackTrace();
+					}
+
+				}
+			});
+		}
+	}
 
 	@Override
 	public boolean onSupportNavigateUp() {

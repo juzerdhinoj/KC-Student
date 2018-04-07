@@ -68,6 +68,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_forgot_password);
 
 		ButterKnife.bind(this);
+		context = this;
 
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -123,8 +124,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 												finish();
 											}
 										}).create().show();
-
-
 								break;
 							case -1://email not found
 								pd.dismiss();

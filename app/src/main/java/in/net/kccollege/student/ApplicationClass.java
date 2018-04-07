@@ -6,12 +6,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.androidnetworking.AndroidNetworking;
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.answers.Answers;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.messaging.FirebaseMessaging;
-
-import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Sahil on 11-07-2017.
@@ -35,7 +31,14 @@ public class ApplicationClass extends Application implements SharedPreferences.O
 	public void onCreate() {
 		super.onCreate();
 		AndroidNetworking.initialize(this);
-		Fabric.with(this, new Crashlytics(), new Answers());
+//		Fabric.with(this, new Crashlytics());
+//		final Fabric fabric = new Fabric.Builder(this)
+//				.kits(new Crashlytics())
+////				.debuggable(true)           // Enables Crashlytics debugger
+//				.build();
+//		Fabric.with(fabric);
+
+
 		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 		sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());

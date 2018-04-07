@@ -66,10 +66,6 @@
 			android:theme="@style/AppTheme.NoActionBar">
 		</activity>
 
-		<meta-data
-			android:name="io.fabric.ApiKey"
-			android:value="24724689364ba92595ae9cae177e8eef4c818ad4"/>
-
 		<activity
 			android:name=".activities.BrowserActivity"
 			android:label=""
@@ -106,6 +102,13 @@
 			android:permission="android.permission.BIND_JOB_SERVICE">
 
 		</service>
+
+		<meta-data
+			android:name="io.fabric.ApiKey"
+			android:value="24724689364ba92595ae9cae177e8eef4c818ad4"
+			/>
+
+
 	</application>
 
 </manifest>

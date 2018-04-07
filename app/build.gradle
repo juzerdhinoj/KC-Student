@@ -12,8 +12,8 @@ android {
 		applicationId "in.net.kccollege.student"
 		minSdkVersion 19
 		targetSdkVersion 27
-		versionCode 6
-		versionName "1.4"
+		versionCode 7
+		versionName "1.4.1"
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
 	}
@@ -35,9 +35,7 @@ dependencies {
 	implementation("com.mikepenz:materialdrawer:6.0.6@aar") {
 		transitive = true
 	}
-	implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
-		transitive = true
-	}
+
 	androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:2.2.2', {
 		exclude group: 'com.android.support', module: 'support-annotations'
 		exclude group: 'com.android.support', module: 'support-v4'
@@ -65,9 +63,12 @@ dependencies {
 	implementation 'com.github.bumptech.glide:glide:4.6.1'
 	annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
 
-	implementation 'com.google.firebase:firebase-core:11.0.4'
-	implementation 'com.google.firebase:firebase-crash:11.0.4'
-	implementation 'com.google.firebase:firebase-messaging:11.0.4'
+	implementation 'com.google.firebase:firebase-messaging:12.0.1'
+	implementation 'com.google.firebase:firebase-core:12.0.1'
+	implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
+		transitive = true
+	}
+
 
 }
 // debugImplementation 'com.amitshekhar.android:debug-db:1.0.1'
