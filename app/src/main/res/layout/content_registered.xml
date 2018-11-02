@@ -28,7 +28,7 @@
 			android:foregroundGravity="center"
 
 			android:gravity="center"
-			android:text="Congratulations.\nYou have Sucessfully Registered..."
+			android:text="Congratulations.\nYou have Successfully Registered..."
 
 			android:textSize="17sp"/>
 

@@ -75,7 +75,7 @@
 	<string name="error_roll_taken">Roll No already taken</string>
 	<string name="error_blank_email">Email ID field cannot be left blank</string>
 	<string name="error_blank_pass">Password cannot be less than 5 characters</string>
-	<string name="warning_register">\nFor security purposes,\nyou will only be able to view results for your Roll no.\n\nConfirm all the details before tapping on \"Register\"\n</string>
+	<string name="warning_register">•For security purposes,you will only be able to view results for your Roll no.\n\n•Confirm all the details before tapping on \"Register\"\n</string>
 	<string name="error_file_notfound">Offline file was not found</string>
 	<string name="error_password_match">Passwords do not match</string>
 	<string name="error_field_required">All fields are required</string>
@@ -110,6 +110,9 @@
 	<string name="feedback_url">http://kccollege.net.in/app_apis/feedback.php</string>
 	<string name="channel_description">Notifications for Notices</string>
 	<string name="channel_name">Notices</string>
+	<string name="privacy"><![CDATA[<a href=\"#\">Privacy Policy</a>]]></string>
+	<string name="privacyurl">http://kccollege.net.in/privacy_policy.html</string>
+	<string name="accept_privacy"><![CDATA[•By tapping on \"Register\", you accept our <a href=\"http://kccollege.net.in/privacy_policy.html\">Privacy Policy</a>]]></string>
 
 
 </resources>

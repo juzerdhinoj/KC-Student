@@ -7,6 +7,9 @@
 		android:id="@+id/changepass"
 		android:title="Change Password"/>
 	<item
+		android:id="@+id/privacy"
+		android:title="Privacy Policy"/>
+	<item
 		android:id="@+id/logout"
 		android:title="Logout"/>
 </menu>

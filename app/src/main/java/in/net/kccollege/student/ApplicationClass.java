@@ -6,8 +6,10 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.androidnetworking.AndroidNetworking;
-import com.google.firebase.analytics.FirebaseAnalytics;
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Sahil on 11-07-2017.
@@ -16,22 +18,22 @@ import com.google.firebase.messaging.FirebaseMessaging;
 public class ApplicationClass extends Application implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 	private static final String TAG = "ApplicationClass";
-	private static FirebaseAnalytics mFirebaseAnalytics;
+	//	private static FirebaseAnalytics mFirebaseAnalytics;
 	private static SharedPreferences sp;
 
 	public static SharedPreferences getSp() {
 		return sp;
 	}
 
-	public static FirebaseAnalytics getmFirebaseAnalytics() {
-		return mFirebaseAnalytics;
-	}
+//	public static FirebaseAnalytics getmFirebaseAnalytics() {
+//		return mFirebaseAnalytics;
+//	}
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		AndroidNetworking.initialize(this);
-//		Fabric.with(this, new Crashlytics());
+		Fabric.with(this, new Crashlytics());
 //		final Fabric fabric = new Fabric.Builder(this)
 //				.kits(new Crashlytics())
 ////				.debuggable(true)           // Enables Crashlytics debugger
@@ -39,7 +41,7 @@ public class ApplicationClass extends Application implements SharedPreferences.O
 //		Fabric.with(fabric);
 
 
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+//		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 		sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		sp.registerOnSharedPreferenceChangeListener(this);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -90,6 +91,9 @@ public class LoginActivity extends AppCompatActivity {
 	@BindView(R.id.lblLogin)
 	TextView lblLogin;
 
+	@BindView(R.id.lblprivacy)
+	TextView lblPrivacy;
+
 	private SharedPreferences sp;
 	private ProgressD pd;
 	private Context context;
@@ -171,6 +175,19 @@ public class LoginActivity extends AppCompatActivity {
 				finish();
 			}
 		});
+
+
+		lblPrivacy.setText(Html.fromHtml(getString(R.string.privacy)));
+		lblPrivacy.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String url = getString(R.string.privacyurl);
+				Intent i = new Intent(Intent.ACTION_VIEW);
+				i.setData(Uri.parse(url));
+				startActivity(i);
+			}
+		});
+
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 

@@ -127,6 +127,16 @@
 			android:gravity="center_horizontal"
 			android:text="@string/contact_sir"
 			android:textSize="16sp"/>
+
+
+		<TextView
+			android:id="@+id/lblprivacy"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_horizontal"
+			android:textSize="16sp"/>
+
+
 	</LinearLayout>
 
 </ScrollView>

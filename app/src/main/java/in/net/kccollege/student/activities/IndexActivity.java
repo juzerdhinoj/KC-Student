@@ -221,6 +221,13 @@ public class IndexActivity extends AppCompatActivity implements Drawer.OnDrawerI
 				startActivity(i3);
 				return true;
 
+			case R.id.privacy:
+				String url = getString(R.string.privacyurl);
+				Intent i = new Intent(Intent.ACTION_VIEW);
+				i.setData(Uri.parse(url));
+				startActivity(i);
+				return true;
+
 			case R.id.logout:
 				Intent i4 = new Intent(context, LoginActivity.class);
 				DatabaseHandler.logoutUser(context);

@@ -8,10 +8,13 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -105,6 +108,9 @@ public class RegisterActivity extends AppCompatActivity {
 	@BindView(R.id.toolbar)
 	Toolbar toolbar;
 
+	@BindView(R.id.accept_privacy)
+	TextView lblPrivacy;
+
 	private SharedPreferences sp;
 	private ProgressD pd;
 	private Context context;
@@ -163,6 +169,9 @@ public class RegisterActivity extends AppCompatActivity {
 				}
 			}
 		});
+
+		lblPrivacy.setText(Html.fromHtml(getString(R.string.accept_privacy)));
+		lblPrivacy.setMovementMethod(LinkMovementMethod.getInstance());
 
 
 	}
